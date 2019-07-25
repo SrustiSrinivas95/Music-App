@@ -37,10 +37,13 @@ form div {
   padding-top: 0.6em;
 }
 
+body{
+  background-color:rgba(191, 236, 221, 0.788);
+}
 
 form div label {
   float: left ;
-  width: 40%;
+  width: 20%;
   font: bold 0.9em Arial;
 }
 
@@ -50,8 +53,8 @@ form div label {
 }
 
 .field-set{
-  width: 50%;
-  margin-left: 25%;
+  width: 35%;
+  margin-left: 30%;
   font-family: Arial, Helvetica, sans-serif;
 }
 

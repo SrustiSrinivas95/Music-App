@@ -60,7 +60,7 @@ class SearchList extends Component{
 
     render(){
         return(
-            <div>
+            <div className="div-list">
                 <h1>Create Playlist</h1>
                 <div className="search-div">
                 <TextField InputProps={{
@@ -87,7 +87,7 @@ class SearchList extends Component{
                         return (
                             <div key={index}>
                                 <div>
-                                    <Checkbox color="secondary" onChange={e => this.handleChecked(e, fileData)} />Song Title:{fileData.songName}
+                                    <Checkbox color="primary" onChange={e => this.handleChecked(e, fileData)} />Song Title:{fileData.songName}
                                 </div>
                                 <div>
                                     Artist:{fileData.artist}

@@ -20,7 +20,7 @@ export default function CancelPopUp() {
 
   return (
     <div>
-      <Button variant="contained" color="secondary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Cancel
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

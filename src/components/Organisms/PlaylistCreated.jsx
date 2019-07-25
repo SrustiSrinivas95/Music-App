@@ -18,7 +18,7 @@ export default function PlaylistCreated() {
 
   return (
     <div>
-      <Button color="secondary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Create Playlist
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

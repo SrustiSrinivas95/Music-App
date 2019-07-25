@@ -125,7 +125,7 @@ class Form extends Component {
                         <div>
                             <Button type="submit" 
                                     variant="contained" 
-                                    color="secondary"
+                                    color="primary"
                                     onChange={this.handleSubmit}>
                                     Submit
                             </Button>
