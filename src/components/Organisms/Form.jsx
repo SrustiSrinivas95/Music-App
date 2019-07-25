@@ -1,84 +1,74 @@
 import React, { Component } from 'react'
 import Input from '../Atoms/Input'
-// import Button from '../Atoms/Button'
 import Button from '@material-ui/core/Button'
 import CancelPopUp from '../Organisms/CancelPopUp'
 
+const initialState = {
+        songName: "",
+        artist: "",
+        location: "",
+        album: "",
+        duration: "",
+        tags: "",
+        songNameError: "",
+        locationError: ""
+};
+
 class Form extends Component {
+    state = initialState;
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            addSong: {
-                songName: "",
-                artist: "",
-                location: "",
-                album: "",
-                duration: "",
-                tags: "",
-                songNameError: "",
-                locationError: ""
-            },
-        }
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleInput = this.handleInput.bind(this);
-
-    }
-
-    //to handle input tags   
-    handleInput = (e) => {
-        let addSong = this.state.addSong;
-        addSong[e.target.name] = e.target.value
+    //to handle input tags
+    handleChange = (event) => {
+        const isCheckbox = event.target.type === "checkbox";
         this.setState({
-            addSong
-        }
-        )
-        console.log({ [e.target.name]: e.target.value })
-    }
+            [event.target.name]: isCheckbox
+                ? event.target.checked
+                : event.target.value
+        });
+    };
     //validation of the form
     validate = () => {
-        console.log("validation entry",this.state.addSong.songName);
         let songNameError = "";
         let locationError = "";
 
-        if (!this.state.addSong.songName) {
+        if (!this.state.songName) {
             songNameError = "name cannot be blank";
         }
 
-        if (!this.state.addSong.location) {
-            locationError = "location cannot be blank";
+        if (!this.state.location) {
+            locationError= "location cannot be blank";
         }
 
-        if (songNameError || locationError) {
+        if ( songNameError || locationError) {
             this.setState({ songNameError, locationError });
-            return true;
+            return false;
         }
-        console.log("validation exit");
-        return false;
+
+        return true;
     };
     //on submit of the form
-    handleFormSubmit = event => {
+    handleSubmit = event => {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
             console.log(this.state);
             // clear form
-            this.setState(this.state.addSong);
+            this.setState(initialState);
         }
     };
     render() {
         return (
             <div>
                 <fieldset className="field-set">
-                    <form className="container-fluid" onSubmit={this.handleFormSubmit}>
+                    <form className="container-fluid" onSubmit={this.handleSubmit}>
                         <div>
                             <Input inputType={'text'}
                                 title={'Song Title/Name:'}
                                 name={'songName'}
                                 id={'songName'}
-                                value={this.state.addSong['songName']}
+                                value={this.state.songName}
                                 placeholder={'Enter songName'}
-                                handleChange={this.handleInput}
+                                handleChange={this.handleChange}
                             />
                         </div>
                         <div style={{ fontSize: 12, color: "red", fontFamily:"'lucida grande', tahoma, verdana, arial, sans-serif" }}>
@@ -88,69 +78,61 @@ class Form extends Component {
                             <Input inputType={'text'}
                                 title={'Artist:'}
                                 name={'artist'}
-                                value={this.state.addSong.artist}
+                                value={this.state.artist}
                                 placeholder={'Enter artist'}
-                                handleChange={this.handleInput}
+                                handleChange={this.handleChange}
                             />
                         </div>
                         <div>
                             <Input inputType={'text'}
                                 title={'Location:'}
                                 name={'location'}
-                                value={this.state.addSong.location}
+                                value={this.state.location}
                                 placeholder={'Enter location'}
-                                handleChange={this.handleInput}
+                                handleChange={this.handleChange}
                             />
+                        </div>
+                        <div style={{ fontSize: 12, color: "red", fontFamily:"'lucida grande', tahoma, verdana, arial, sans-serif" }}>
+                            {this.state.locationError}
                         </div>
                         <div>
                             <Input inputType={'text'}
                                 title={'Album:'}
                                 name={'album'}
-                                value={this.state.addSong.album}
+                                value={this.state.album}
                                 placeholder={'Enter album'}
-                                handleChange={this.handleInput}
+                                handleChange={this.handleChange}
                             />
                         </div>
                         <div>
                             <Input inputType={'number'}
                                 title={'Duration:'}
                                 name={'duration'}
-                                value={this.state.addSong.duration}
+                                value={this.state.duration}
                                 placeholder={'Enter duration in secs'}
-                                handleChange={this.handleInput}
+                                handleChange={this.handleChange}
                             />
                         </div>
                         <div>
                             <Input inputType={'text'}
                                 title={'Tags:'}
                                 name={'tags'}
-                                value={this.state.addSong.tags}
+                                value={this.state.tags}
                                 placeholder={'Enter tags'}
-                                handleChange={this.handleInput}
+                                handleChange={this.handleChange}
                             />
                         </div>
                         <div>
-                            {/* <Button
-                                className="button-style"
-                                action={this.handleFormSubmit}
-                                type={'primary'}
-                                title={'Submit'}
-                                variant="contained"
-
-                            /> */}
                             <Button type="submit" 
                                     variant="contained" 
                                     color="secondary"
-                                    onChange={this.handleFormSubmit}>
+                                    onChange={this.handleSubmit}>
                                     Submit
                             </Button>
                             <CancelPopUp />
                         </div>
                     </form>
                 </fieldset>
-                <div>
-                    {this.state.addSong.songNameError}
-                </div>
             </div>
         );
     }
